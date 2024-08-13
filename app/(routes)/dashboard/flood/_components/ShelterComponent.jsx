@@ -54,7 +54,7 @@ const ShelterComponent = () => {
       <div className="w-full h-[0px] border border-black m-1"></div>
       <div className="w-full h-full p-[2%] overflow-y-auto">
         {shelters.map((shelter) => (
-          <ShelterDetails key={shelter.id} {...shelter} onDelete={handleDeleteShelter} />
+          <ShelterDetails key={shelter.id} {...shelter} onDelete={handleDeleteShelter}/>
         ))}
       </div>
       {showForm && <ShelterForm onClose={handleCloseForm} />}

@@ -4,10 +4,14 @@
 "use client"
 
 import React from "react";
-import CrowdComponent from "../_components/CrowdComponent";
-import LocationCards from "../_components/LocationCards";
-import CrowdMapComponent from "../_components/CrowdMapComponent";
-import FakeAlarm from "../_components/FakeAlarm";
+import CrowdComponent from "./_components/CrowdComponent";
+import CrowdMapComponent from "./_components/CrowdMapComponent";
+import FakeAlarm from "./_components/FakeAlarm";
+import LocationCards from "./_components/LocationCards";
+// import CrowdComponent from "../_components/CrowdComponent";
+// import LocationCards from "../_components/LocationCards";
+// import CrowdMapComponent from "../_components/CrowdMapComponent";
+// import FakeAlarm from "../_components/FakeAlarm";
 
 const CrowdPage = () => {
   return (

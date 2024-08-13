@@ -3,9 +3,12 @@
 "use client";
 
 import React from "react";
-import ShelterComponent from "../_components/ShelterComponent";
-import FloodComponent from "../_components/FloodComponent";
-import FloodMapComponent from "../_components/FloodMapComponent";
+import ShelterComponent from "./_components/ShelterComponent";
+import FloodMapComponent from "./_components/FloodMapComponent";
+import FloodComponent from "./_components/FloodComponent";
+// import ShelterComponent from "../_components/ShelterComponent";
+// import FloodComponent from "../_components/FloodComponent";
+// import FloodMapComponent from "../_components/FloodMapComponent";
 
 const FloodPage = () => {
   return (
