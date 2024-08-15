@@ -1,5 +1,3 @@
-// /dashboard/page.jsx
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -9,17 +7,16 @@ import ShareFeedback from "./_components/ShareFeedback";
 import DisclaimerQuote from "./_components/DisclaimerQuote";
 import Procedure from "./_components/ProcedureComponent";
 import dynamic from "next/dynamic";
-import AlertBox from "./_components/AlertBox";
 import ScrollingAlert from "./_components/ScrollingAlert";
 import { app } from "@/config/FirebaseConfig";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/_components/Loading";
 import Role from "./_components/Role";
 import EsclateBox from "./_components/EscalateBox";
 import { ShelterProvider } from "@/context/ShelterContext";
 import VelocityTimeChart from "./_components/VelocityTimeChart";
+import { useSession } from "next-auth/react";
 
 // Import the FloodComponent dynamically
 const FloodComponent = dynamic(() => import("./flood/FloodPage"), {
@@ -32,61 +29,56 @@ const CrowdComponent = dynamic(() => import("./crowd/CrowdPage"), {
 
 const Page = () => {
   const db = getFirestore(app);
-  const { user } = useKindeBrowserClient();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [stage, setStage] = useState(3);
-  const [rainStatus, setRainStatus] = useState();
-  const [waterLevel, setWaterLevel] = useState();
   const [currentView, setCurrentView] = useState(null);
+  const { data: session, status } = useSession();
 
-  const getStage = async () => {
-    // const docRef = doc(db, "Flood-data", "waterlevel-1");
-    console.log("reached here");
-    const docRef = doc(db, "stage", "stage");
-    try {
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        console.log("stage data:", docSnap.data());
-        // setRainStatus(docSnap.data()?.rainStatus);
-        // setWaterLevel(docSnap.data()?.waterLevel);
-        setStage(docSnap.data()?.stage);
-      } else {
-        console.log("No such stage!");
+  useEffect(() => {
+    const getStage = async () => {
+      const docRef = doc(db, "stage", "stage");
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setStage(docSnap.data()?.stage);
+        } else {
+          console.log("No such stage!");
+        }
+      } catch (error) {
+        console.error("Error fetching stage data:", error);
       }
-    } catch (error) {
-      console.log("No such stage!");
-    }
-  };
+    };
 
-  useEffect(() => {
     getStage();
-  }, []);
+  }, [db]);
 
   useEffect(() => {
-    if (user) isUserRegistered();
-  }, [user]);
+    if (status === "authenticated") {
+      isUserRegistered();
+    } else if (status === "unauthenticated") {
+      router.replace("/login");
+    }
+  }, [status]);
 
   const isUserRegistered = async () => {
-    const docRef = doc(db, "UserDetails", user.email);
+    const docRef = doc(db, "UserDetails", session.user.email);
     try {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
         setLoading(false);
       } else {
-        console.log("No such document!");
         router.replace("/user-details");
         setLoading(false);
       }
     } catch (error) {
-      console.log("No such document!");
+      console.error("Error checking user registration:", error);
       router.replace("/user-details");
       setLoading(false);
     }
   };
 
-  if (loading) {
+  if (status === "loading" || loading) {
     return <Loading />;
   }
 
@@ -116,19 +108,20 @@ const Page = () => {
               Crowd
             </button>
           </div>
-          {/* Header Section */}
+
           <div className="py-4 text-center text-xl font-bold">
             {currentView === "flood" && "dashboard/flood"}
             {currentView === "crowd" && "dashboard/crowd"}
             {currentView === null && "dashboard"}
           </div>
+
           <div>
             {currentView === "flood" && <FloodComponent />}
             {currentView === "crowd" && <CrowdComponent />}
           </div>
+
           <div className="p-4 md:p-20 bg-[#F0F0F0] rounded-t-3xl">
             <div className="flex justify-center pb-10 w-full">
-              {/* <AlertBox stage={stage} /> */}
               <div className="w-full px-10">
                 <h1>Velocity vs. Time Chart</h1>
                 <VelocityTimeChart />

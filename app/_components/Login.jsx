@@ -1,11 +1,44 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+// import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+import Loading from "./Loading";
+// import { useRouter } from "next/navigation";
+// import { doc, getDoc, getFirestore } from "firebase/firestore";
+// import { app } from "@/config/FirebaseConfig";
 
 const Login = () => {
+  const { data: session, status } = useSession();
+  // const router = useRouter();
+  // const db = getFirestore(app);
+  console.log(session);
+
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      console.log(session.user.email);
+      // router.replace("/dashboard");
+    }
+  }, [status, session]);
+
+  if (status === "loading") {
+    return <Loading />;
+  }
+
+  // if (status === "unauthenticated") {
+  //   return <p>User unauthenticated</p>;
+  // }
+
+  const signInHandler = () =>{
+    console.log("hello")
+    signIn("google", { callbackUrl: "/dashboard" })
+    // signIn("google")
+    // router.replace("/dashboard");
+  }
+
   return (
     <div
       // className="h-screen pt-[5%] bg-[#4255e0] bg-opacity-90"
@@ -43,12 +76,20 @@ const Login = () => {
             </div>
             <div className="flex gap-4 flex-col mt-5">
               <div className="flex justify-center gap-2 md:gap-8 px-2">
-                <LoginLink>
+                {/* <LoginLink>
                   <Button className="py-5 px-7 md:p-[15%] bg-white text-black hover:text-white shadow-xl rounded-full flex gap-4">
                     <Image src={"/google.svg"} width={30} height={30}></Image>
                     <div className="mr-3">Sign up with Google</div>
                   </Button>
-                </LoginLink>
+                </LoginLink> */}
+
+                <Button
+                  className="py-5 px-7 bg-white text-black hover:text-white shadow-xl rounded-full flex gap-4"
+                  onClick={signInHandler}
+                >
+                  <Image src={"/google.svg"} width={30} height={30}></Image>
+                  <div className="mr-3">Sign up with Google</div>
+                </Button>
               </div>
             </div>
           </div>
