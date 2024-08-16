@@ -107,37 +107,37 @@ const ShelterDetails = ({
         </div>
 
         <div className="flex flex-col justify-center">
-          <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
+          <div className="text-black text-xxs font-semibold font-['Radio Canada'] tracking-wide">
             {name}:
           </div>
           <div>
-            <span className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
+            <span className="text-black text-xxs font-semibold font-['Radio Canada'] tracking-wide">
               Food:{" "}
             </span>
             <span
-              className={`text-xs font-semibold font-['Radio Canada'] tracking-wide ${getColor(
+              className={`text-xxs font-semibold font-['Radio Canada'] tracking-wide ${getColor(
                 food
               )}`}
             >
               {food} days
               <br />
             </span>
-            <span className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
+            <span className="text-black text-xxs font-semibold font-['Radio Canada'] tracking-wide">
               Water:{" "}
             </span>
             <span
-              className={`text-xs font-semibold font-['Radio Canada'] tracking-wide ${getColor(
+              className={`text-xxs font-semibold font-['Radio Canada'] tracking-wide ${getColor(
                 water
               )}`}
             >
               {water} days
               <br />
             </span>
-            <span className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
+            <span className="text-black text-xxs font-semibold font-['Radio Canada'] tracking-wide">
               Meds:{" "}
             </span>
             <span
-              className={`text-xs font-semibold font-['Radio Canada'] tracking-wide ${getColor(
+              className={`text-xxs font-semibold font-['Radio Canada'] tracking-wide ${getColor(
                 meds
               )}`}
             >

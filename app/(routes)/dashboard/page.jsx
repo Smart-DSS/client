@@ -15,7 +15,7 @@ import Loading from "@/app/_components/Loading";
 import Role from "./_components/Role";
 import EsclateBox from "./_components/EscalateBox";
 import { ShelterProvider } from "@/context/ShelterContext";
-import VelocityTimeChart from "./_components/VelocityTimeChart";
+import VelocityTimeChart from "./crowd/_components/VelocityTimeChart";
 import { useSession } from "next-auth/react";
 
 // Import the FloodComponent dynamically
@@ -112,21 +112,16 @@ const Page = () => {
           <div className="py-4 text-center text-xl font-bold">
             {currentView === "flood" && "dashboard/flood"}
             {currentView === "crowd" && "dashboard/crowd"}
-            {currentView === null && "dashboard"}
+            {currentView === null && "dashboard/flood"}
           </div>
 
           <div>
             {currentView === "flood" && <FloodComponent />}
             {currentView === "crowd" && <CrowdComponent />}
+            {currentView === null && <FloodComponent />}
           </div>
 
           <div className="p-4 md:p-20 bg-[#F0F0F0] rounded-t-3xl">
-            <div className="flex justify-center pb-10 w-full">
-              <div className="w-full px-10">
-                <h1>Velocity vs. Time Chart</h1>
-                <VelocityTimeChart />
-              </div>
-            </div>
             <div className="grid md:grid-cols-3 grid-cols-1 gap-5 md:gap-0 nav animate-fadeInUp">
               <EsclateBox />
               <Role stage={stage} />

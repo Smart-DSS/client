@@ -1,13 +1,13 @@
 // dashboard/crowd/CrowdPage.jsx
 
-
-"use client"
+"use client";
 
 import React from "react";
 import CrowdComponent from "./_components/CrowdComponent";
 import CrowdMapComponent from "./_components/CrowdMapComponent";
 import FakeAlarm from "./_components/FakeAlarm";
 import LocationCards from "./_components/LocationCards";
+import VelocityTimeChart from "./_components/VelocityTimeChart";
 // import CrowdComponent from "../_components/CrowdComponent";
 // import LocationCards from "../_components/LocationCards";
 // import CrowdMapComponent from "../_components/CrowdMapComponent";
@@ -16,14 +16,20 @@ import LocationCards from "./_components/LocationCards";
 const CrowdPage = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-7 gap-4 justify-center w-full px-[4%] py-[2%]">
-      <div className="w-full col-span-1 md:col-span-2">
+      <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4">
         <CrowdComponent />
+        {/* <div className="flex justify-center pb-10 w-full">
+          <div className="w-full px-10"> */}
+        
+        <VelocityTimeChart />
+        {/* </div>
+        </div> */}
       </div>
       <div className="w-full col-span-1 md:col-span-3">
-        <CrowdMapComponent/>
+        <CrowdMapComponent />
       </div>
       <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4">
-        <FakeAlarm/>
+        <FakeAlarm />
         <LocationCards />
       </div>
     </div>
