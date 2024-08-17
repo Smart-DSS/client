@@ -100,9 +100,9 @@ const ShelterDetails = ({
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-start">
           <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
-            Accommodation left:
+          Vacancies:
           </div>
           <div className="text-black text-4xl font-semibold font-['Radio Canada'] tracking-widest flex justify-center">
             {accommodationLeft}

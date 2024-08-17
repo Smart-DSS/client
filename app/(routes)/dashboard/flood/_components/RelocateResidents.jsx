@@ -66,7 +66,7 @@ const RelocateResidents = () => {
   };
 
   return (
-    <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col m-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
+    <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col mx-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
       {alertState === null && (
         <>
           <div className="w-full flex justify-center items-center text-black text-lg font-['Radio Canada'] tracking-wide">
@@ -79,7 +79,7 @@ const RelocateResidents = () => {
                <div className="font-extralight text-sm">To notify app users about relocating to their nearest assigned shelter, please click the button below.</div> 
               <button
                 onClick={notifyResidents}
-                className="bg-blue-400 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+                className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
                 disabled={loading}
               >
                 <span>

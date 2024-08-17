@@ -4,10 +4,10 @@ import ShelterDetails from './ShelterDetails';
 import ShelterForm from './ShelterForm';
 import { useShelters } from '@/context/ShelterContext';
 
-const ShelterComponent = () => {
+const ShelterComponent = ({ selectedShelter, setSelectedShelter }) => {
   const { shelters, setShelters } = useShelters();
   const [showForm, setShowForm] = useState(false);
-  const [selectedShelter, setSelectedShelter] = useState(null);
+  // const [selectedShelter, setSelectedShelter] = useState(null);
 
   const handleAddShelterClick = () => {
     setShowForm(true);
