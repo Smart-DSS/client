@@ -1,51 +1,3 @@
-// import React from "react";
-
-// const ShelterDetails = () => {
-//   return (
-//     <div className="flex justify-center p-[1%]">
-//       <div className="w-full h-24 bg-[#f1f1f1] rounded-[15px] flex justify-between p-[5%] hover:scale-105 hover:cursor-pointer">
-//         <div className="flex flex-col justify-center">
-//           <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//             SHELTER 1:
-//           </div>
-//           <div>
-//             <span className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//               Food:{" "}
-//             </span>
-//             <span className="text-[#02a000] text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//               41 days
-//               <br />
-//             </span>
-//             <span className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//               Water:{" "}
-//             </span>
-//             <span className="text-[#03a100] text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//               51 days
-//               <br />
-//             </span>
-//             <span className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//               Meds:{" "}
-//             </span>
-//             <span className="text-[#03a100] text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//               36 days
-//             </span>
-//           </div>
-//         </div>
-//         <div className="flex flex-col justify-center">
-//           <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
-//             Accommodation left:
-//           </div>
-//           <div className="text-black text-4xl font-semibold font-['Radio Canada'] tracking-widest flex justify-center">
-//             46
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ShelterDetails;
-
 import React, { useState } from "react";
 import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 import { app } from "@/config/FirebaseConfig";
@@ -60,6 +12,7 @@ const ShelterDetails = ({
   meds,
   accommodationLeft,
   onDelete,
+  onSelect, // New prop for selecting the shelter
 }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -85,20 +38,22 @@ const ShelterDetails = ({
   };
 
   return (
-    <div className="flex justify-center p-[1%]">
-      <div className="w-full h-24 bg-[#f1f1f1] rounded-[15px] flex justify-between p-[5%] hover:scale-105 hover:cursor-pointer relative">
+    <div
+      className="flex justify-center p-[1%]"
+      onClick={() => onSelect(name)} // Set the selected shelter on click
+    >
+      <div className="w-full h-24 bg-gray-50 rounded-[15px] flex justify-between p-[5%] hover:bg-gray-100 hover:scale-105 hover:cursor-pointer relative">
         <div className="absolute bottom-2 right-2">
           <button
             className="text-red-600 hover:text-red-800 focus:outline-none opacity-20 hover:opacity-100"
-            onClick={() => setShowDeleteConfirm(true)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent the onSelect from triggering on delete click
+              setShowDeleteConfirm(true);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
-              x="0px"
-              y="0px"
-              width="100"
-              height="100"
               viewBox="0 0 24 24"
             >
               <path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"></path>

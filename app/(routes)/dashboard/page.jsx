@@ -32,7 +32,8 @@ const Page = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [stage, setStage] = useState(3);
-  const [currentView, setCurrentView] = useState(null);
+  // const [currentView, setCurrentView] = useState(null);
+  const [currentView, setCurrentView] = useState("flood");
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -94,14 +95,18 @@ const Page = () => {
 
           <div className="flex w-full justify-evenly h-16 m-4">
             <button
-              className="w-32 bg-blue-200 h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2"
+              className={`w-32 h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
+                currentView === "flood" ? "bg-blue-300" : "bg-blue-200 hover:bg-blue-300"
+              }`}
               onClick={() => setCurrentView("flood")}
             >
               <img src="/flood.png" alt="Flood" className="w-10 h-10 mb-1" />
               Flood
             </button>
             <button
-              className="w-32 bg-blue-200 h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2"
+              className={`w-32 h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
+                currentView === "crowd" ? "bg-blue-300" : "bg-blue-200 hover:bg-blue-300"
+              }`}
               onClick={() => setCurrentView("crowd")}
             >
               <img src="/crowd.png" alt="Crowd" className="w-10 h-10 mb-1" />
@@ -112,13 +117,13 @@ const Page = () => {
           <div className="py-4 text-center text-xl font-bold">
             {currentView === "flood" && "dashboard/flood"}
             {currentView === "crowd" && "dashboard/crowd"}
-            {currentView === null && "dashboard/flood"}
+            {/* {currentView === null && "dashboard/flood"} */}
           </div>
 
           <div>
             {currentView === "flood" && <FloodComponent />}
             {currentView === "crowd" && <CrowdComponent />}
-            {currentView === null && <FloodComponent />}
+            {/* {currentView === null && <FloodComponent />} */}
           </div>
 
           <div className="p-4 md:p-20 bg-[#F0F0F0] rounded-t-3xl">

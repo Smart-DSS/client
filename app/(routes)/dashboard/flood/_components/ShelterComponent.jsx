@@ -1,38 +1,13 @@
-// import React from "react";
-// import ShelterDetails from "./ShelterDetails";
-
-// const ShelterComponent = () => {
-//   return (
-//     <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col m-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
-
-//       <div className="w-full flex justify-center text-black text-lg font-bold font-['Radio Canada'] tracking-wide">Availability</div>
-//       <div className="w-full h-[0px] border border-black m-1"></div>
-
-//       <div className="w-full h-full  p-[2%] overflow-y-auto">
-//         <ShelterDetails />
-//         <ShelterDetails />
-//         <ShelterDetails />
-//         <ShelterDetails />
-//         <ShelterDetails />
-//         <ShelterDetails />
-//         <ShelterDetails />
-//         <ShelterDetails />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ShelterComponent;
-
-
-import React, { useState } from "react";
-import ShelterDetails from "./ShelterDetails";
-import ShelterForm from "./ShelterForm";
-import { useShelters } from "@/context/ShelterContext";
+// ShelterComponent.jsx (modified snippet)
+import React, { useState } from 'react';
+import ShelterDetails from './ShelterDetails';
+import ShelterForm from './ShelterForm';
+import { useShelters } from '@/context/ShelterContext';
 
 const ShelterComponent = () => {
-  const { shelters, setShelters } = useShelters(); // Assuming setShelters is available to update state
+  const { shelters, setShelters } = useShelters();
   const [showForm, setShowForm] = useState(false);
+  const [selectedShelter, setSelectedShelter] = useState(null);
 
   const handleAddShelterClick = () => {
     setShowForm(true);
@@ -43,18 +18,30 @@ const ShelterComponent = () => {
   };
 
   const handleDeleteShelter = (id) => {
-    setShelters((prevShelters) => prevShelters.filter((shelter) => shelter.id !== id));
+    setShelters((prevShelters) =>
+      prevShelters.filter((shelter) => shelter.id !== id)
+    );
+  };
+
+  const handleSelectShelter = (name) => {
+    console.log(name)
+    setSelectedShelter(name);
   };
 
   return (
-    <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col m-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
-      <div className="w-full flex justify-center items-center text-black text-lg font-['Radio Canada'] tracking-wide">
+    <div className="w-full h-full max-h-[400px] md:max-h-[530px] flex flex-col m-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
+      <div className="w-full flex justify-center items-center text-black text-lg font-bold font-['Radio Canada'] tracking-wide">
         <div>Shelter Availability</div>
       </div>
       <div className="w-full h-[0px] border border-black m-1"></div>
       <div className="w-full h-full p-[2%] overflow-y-auto">
         {shelters.map((shelter) => (
-          <ShelterDetails key={shelter.id} {...shelter} onDelete={handleDeleteShelter}/>
+          <ShelterDetails
+            key={shelter.id}
+            {...shelter}
+            onDelete={handleDeleteShelter}
+            onSelect={handleSelectShelter} // Pass the handler down
+          />
         ))}
       </div>
       {showForm && <ShelterForm onClose={handleCloseForm} />}

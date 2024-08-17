@@ -42,7 +42,7 @@ const CrowdDetails = () => {
 
   return (
     <div className="flex justify-center p-[1%]">
-      <div className="w-full h-28 bg-[#f1f1f1] rounded-[15px] flex justify-between p-[5%] hover:scale-105 hover:cursor-pointer">
+      <div className="w-full h-28 bg-gray-100 rounded-[15px] flex justify-between p-[5%] hover:bg-gray-200 hover:cursor-pointer">
         <div className="flex flex-col justify-centern w-[50%]">
           <div className="flex flex-col justify-center">
             <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">

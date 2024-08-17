@@ -78,7 +78,7 @@ const FloodDetails = () => {
 
   return (
     <div className="flex justify-center p-[1%]">
-      <div className="w-full h-24 bg-[#f1f1f1] rounded-[15px] flex justify-between p-[5%] hover:scale-105 hover:cursor-pointer">
+      <div className="w-full h-24 bg-gray-50 rounded-[15px] flex justify-between p-[5%] hover:bg-gray-100 hover:scale-105 hover:cursor-pointer">
         <div className="flex flex-col justify-centern w-[50%]">
           <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
             waterlevel-1
