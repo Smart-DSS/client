@@ -9,8 +9,8 @@ import {
   Marker,
   HeatmapLayer,
 } from "@react-google-maps/api";
-import { get, getDatabase, ref } from "firebase/database";
-import { app } from "@/config/FirebaseConfig";
+// import { get, getDatabase, ref } from "firebase/database";
+// import { app } from "@/config/FirebaseConfig";
 import { cam_latLong } from "@/app/_components/cam_latLong";
 
 const containerStyle = {
@@ -18,9 +18,13 @@ const containerStyle = {
   height: "100%",
 };
 
+// const center = {
+//   lat: 11.250503,
+//   lng: 75.781672,
+// };
 const center = {
-  lat: 11.250503,
-  lng: 75.781672,
+  lat: 11.322887,
+  lng: 75.936374,
 };
 
 const CrowdMapComponent = () => {
@@ -28,25 +32,25 @@ const CrowdMapComponent = () => {
   const [heatMapData, setHeatMapData] = useState([]);
   const mapRef = useRef(null);
 
-  const db = getDatabase(app);
+  // const db = getDatabase(app);
 
-  const getLatLong = () => {
-    const dbRef = ref(db, "/data");
-    get(dbRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          console.log("latLongPoints: ", data);
-          setLatLongPoints(data);
-          setHeatMapData(data.map((point) => new google.maps.LatLng(point[0], point[1])));
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  // const getLatLong = () => {
+  //   const dbRef = ref(db, "/data");
+  //   get(dbRef)
+  //     .then((snapshot) => {
+  //       if (snapshot.exists()) {
+  //         const data = snapshot.val();
+  //         console.log("latLongPoints: ", data);
+  //         setLatLongPoints(data);
+  //         setHeatMapData(data.map((point) => new google.maps.LatLng(point[0], point[1])));
+  //       } else {
+  //         console.log("No data available");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   const handleOnLoad = (map) => {
     mapRef.current = map;
@@ -103,7 +107,7 @@ const CrowdMapComponent = () => {
       const goToOriginControl = new GoToOriginControl(goToOriginControlDiv, map, center);
 
       goToOriginControlDiv.index = 1;
-      map.controls[window.google.maps.ControlPosition.LEFT_TOP].push(goToOriginControlDiv);
+      // map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(goToOriginControlDiv);    // ORIGIN
     }
   };
 
@@ -123,13 +127,13 @@ const CrowdMapComponent = () => {
 
     controlUI.addEventListener("click", () => {
       map.setCenter(center);
-      map.setZoom(17);
+      map.setZoom(18);
     });
   }
 
-  useEffect(() => {
-    getLatLong();
-  }, []);
+  // useEffect(() => {
+  //   getLatLong();
+  // }, []);
 
   return (
     <div className="relative w-full h-[400px] md:h-full border-2 border-black rounded-md p-2">
@@ -137,10 +141,10 @@ const CrowdMapComponent = () => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={17}
+          zoom={18}
           onLoad={handleOnLoad}
         >
-          {heatMapData.length > 0 && (
+          {/* {heatMapData.length > 0 && (
             <HeatmapLayer
               data={heatMapData}
               options={{
@@ -148,7 +152,7 @@ const CrowdMapComponent = () => {
                 opacity: 0.6,
               }}
             />
-          )}
+          )} */}
         </GoogleMap>
       </LoadScript>
     </div>

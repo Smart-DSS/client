@@ -93,25 +93,88 @@ const Page = () => {
             <div className="border-red-500 border-b-2 text-2xl">Warnings</div>
           </div>
 
-          <div className="flex w-full justify-evenly h-16 m-4">
-            <button
-              className={`w-32 h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
-                currentView === "flood" ? "bg-blue-300" : "bg-blue-200 hover:bg-blue-300"
-              }`}
-              onClick={() => setCurrentView("flood")}
-            >
-              <img src="/flood.png" alt="Flood" className="w-10 h-10 mb-1" />
-              Flood
-            </button>
-            <button
-              className={`w-32 h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
-                currentView === "crowd" ? "bg-blue-300" : "bg-blue-200 hover:bg-blue-300"
-              }`}
-              onClick={() => setCurrentView("crowd")}
-            >
-              <img src="/crowd.png" alt="Crowd" className="w-10 h-10 mb-1" />
-              Crowd
-            </button>
+          <div className="w-full flex justify-center h-48 md:h-20 m-4 py-10 md:p-1">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-14">
+              <button
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                  currentView === "tsunami"
+                    ? "bg-blue-300"
+                    : "bg-blue-200 hover:bg-blue-300"
+                }`}
+              >
+                <img
+                  src="/tsunami.png"
+                  alt="Tsunami"
+                  className="w-10 h-10 mb-1"
+                />
+                Tsunami
+              </button>
+              <button
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
+                  currentView === "flood"
+                    ? "bg-blue-300"
+                    : "bg-blue-200 hover:bg-blue-300"
+                }`}
+                onClick={() => setCurrentView("flood")}
+              >
+                <img src="/flood.png" alt="Flood" className="w-10 h-10 md:mb-1" />
+                Flood
+              </button>
+              <button
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
+                  currentView === "crowd"
+                    ? "bg-blue-300"
+                    : "bg-blue-200 hover:bg-blue-300"
+                }`}
+                onClick={() => setCurrentView("crowd")}
+              >
+                <img src="/crowd.png" alt="Crowd" className="w-10 h-10 mb-1" />
+                Crowd
+              </button>
+
+              <button
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                  currentView === "landslide"
+                    ? "bg-blue-300"
+                    : "bg-blue-200 hover:bg-blue-300"
+                }`}
+              >
+                <img
+                  src="/landslide.png"
+                  alt="Landslide"
+                  className="w-10 h-10 mb-1"
+                />
+                Landslide
+              </button>
+              <button
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                  currentView === "earthquake"
+                    ? "bg-blue-300"
+                    : "bg-blue-200 hover:bg-blue-300"
+                }`}
+              >
+                <img
+                  src="/earthquake.png"
+                  alt="Earthquake"
+                  className="w-10 h-10 mb-1"
+                />
+                Earthquake
+              </button>
+              <button
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                  currentView === "cyclone"
+                    ? "bg-blue-300"
+                    : "bg-blue-200 hover:bg-blue-300"
+                }`}
+              >
+                <img
+                  src="/cyclone.png"
+                  alt="Cyclone"
+                  className="w-10 h-10 mb-1"
+                />
+                Cyclone
+              </button>
+            </div>
           </div>
 
           <div className="py-4 text-center text-xl font-bold">
