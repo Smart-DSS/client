@@ -8,27 +8,27 @@ const FakeAlarm = () => {
   const storage = getStorage(app);
   const [alertState, setAlertState] = useState(null);
   const [fireDetected, setFireDetected] = useState(null);
+  const [fireEverDetected, setFireEverDetected] = useState(null); // New state variable
   const [latestImageUrl, setLatestImageUrl] = useState(null);
   const [highestConfidenceImageUrl, setHighestConfidenceImageUrl] = useState(null);
   const [timestamp, setTimestamp] = useState(null);
 
   const handleFalseAlarm = async () => {
     setAlertState("false");
-    // fireDetected && !flaseAlarm
 
-    // Update fire_detected to false in Firestore
+    // Update fire_detected and fire_ever_detected to false in Firestore
     const docRef = doc(db, "fire_detection", "1");
     try {
-      await updateDoc(docRef, { fire_detected: false });
-      console.log("fire_detected set to false");
+      await updateDoc(docRef, { fire_detected: false, fire_ever_detected: false });
+      console.log("fire_detected and fire_ever_detected set to false");
     } catch (error) {
-      console.error("Error updating fire_detected:", error);
+      console.error("Error updating fire_detected and fire_ever_detected:", error);
     }
 
     // Delete highest_confidence_1.jpg from Firebase Storage
-    const latestImageRef = ref(storage, "highest_confidence_1.jpg");
+    const highestConfidenceImageRef = ref(storage, "highest_confidence_1.jpg");
     try {
-      await deleteObject(latestImageRef);
+      await deleteObject(highestConfidenceImageRef);
       console.log("highest_confidence_1.jpg deleted successfully");
     } catch (error) {
       console.error("Error deleting highest_confidence_1.jpg:", error);
@@ -46,11 +46,19 @@ const FakeAlarm = () => {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
         setFireDetected(data.fire_detected);
+        setFireEverDetected(data.fire_ever_detected); // Update fireEverDetected
         setTimestamp(data.timestamp);
 
+        // If fire is detected, set fireEverDetected to true in Firestore
+        if (data.fire_detected && !data.fire_ever_detected) {
+          await updateDoc(docRef, { fire_ever_detected: true });
+        }
+
         // Fetch URLs from Firebase Storage
-        const latestImageRef = ref(storage, data.latest_image_url);
-        const highestConfidenceImageRef = ref(storage, data.highest_confidence_image_url);
+        const latestImageRef = ref(storage, process.env.NEXT_PUBLIC_LATEST_IMAGE_URL);
+        const highestConfidenceImageRef = ref(storage, process.env.NEXT_PUBLIC_HIGHEST_CONFIDENCE_IMAGE_URL);
+        // const latestImageRef = ref(storage, data.latest_image_url);
+        // const highestConfidenceImageRef = ref(storage, data.highest_confidence_image_url);
 
         try {
           const latestImageURL = await getDownloadURL(latestImageRef);
@@ -80,11 +88,11 @@ const FakeAlarm = () => {
     return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
   };
 
-  if (fireDetected === null) {
+  if (fireEverDetected === null) {
     return <div>Loading...</div>;
   }
 
-  if (!fireDetected) {
+  if (!fireEverDetected) {
     return (
       <div className="w-full h-full flex justify-center items-center bg-[#ddd] text-black text-lg font-['Radio Canada'] tracking-wide p-4 rounded-lg">
         No potential hazard

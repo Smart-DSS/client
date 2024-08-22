@@ -7,6 +7,7 @@ import ShelterComponent from "./_components/ShelterComponent";
 import FloodMapComponent from "./_components/FloodMapComponent";
 import FloodComponent from "./_components/FloodComponent";
 import RelocateResidents from "./_components/RelocateResidents";
+import FloodWarningComponent from "./_components/FloodWarningComponent";
 // import ShelterComponent from "../_components/ShelterComponent";
 // import FloodComponent from "../_components/FloodComponent";
 // import FloodMapComponent from "../_components/FloodMapComponent";
@@ -19,8 +20,9 @@ const FloodPage = () => {
       <div className="w-full col-span-2 md:col-span-5">
         <FloodMapComponent />
       </div>
-      <div className="w-full col-span-1 md:col-span-2 grid grid-row-5 gap-4">
-        <RelocateResidents/>
+      <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4">
+        {/* <RelocateResidents/> */}
+        <FloodWarningComponent/>
         <FloodComponent/>
       </div>
     </div>

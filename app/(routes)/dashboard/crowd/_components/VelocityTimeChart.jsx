@@ -245,12 +245,12 @@ const VelocityTimeChart = () => {
               }}
             />
             <Tooltip />
-            <Legend
+            {/* <Legend
               wrapperStyle={{
                 fontSize: '12px',
                 marginTop: '10px',
               }}
-            />
+            /> */}
             {Object.keys(filteredData).map(personId => (
               <Line
                 key={personId}
