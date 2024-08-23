@@ -55,10 +55,10 @@ const FakeAlarm = () => {
         }
 
         // Fetch URLs from Firebase Storage
-        const latestImageRef = ref(storage, process.env.NEXT_PUBLIC_LATEST_IMAGE_URL);
-        const highestConfidenceImageRef = ref(storage, process.env.NEXT_PUBLIC_HIGHEST_CONFIDENCE_IMAGE_URL);
-        // const latestImageRef = ref(storage, data.latest_image_url);
-        // const highestConfidenceImageRef = ref(storage, data.highest_confidence_image_url);
+        // const latestImageRef = ref(storage, process.env.NEXT_PUBLIC_LATEST_IMAGE_URL);
+        // const highestConfidenceImageRef = ref(storage, process.env.NEXT_PUBLIC_HIGHEST_CONFIDENCE_IMAGE_URL);
+        const latestImageRef = ref(storage, data.latest_image_url);
+        const highestConfidenceImageRef = ref(storage, data.highest_confidence_image_url);
 
         try {
           const latestImageURL = await getDownloadURL(latestImageRef);

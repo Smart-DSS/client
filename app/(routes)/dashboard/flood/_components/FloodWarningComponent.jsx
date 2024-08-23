@@ -12,11 +12,11 @@ const FloodWarningComponent = () => {
       const querySnapshot = await getDocs(collection(db, "FloodWarning-data"));
       const data = [];
       querySnapshot.forEach((doc) => {
-        data.push({ location: doc.id, waterLevel: doc.data().waterLevel });
+        data.push({ location: doc.id, waterLevel: doc.data().waterLevel>=0?doc.data().waterLevel :0 });
       });
       
-      // Sort data in descending order of water level
-      data.sort((a, b) => b.waterLevel - a.waterLevel);
+      // Sort data by the absolute value of water level in descending order
+      data.sort((a, b) => Math.abs(b.waterLevel) - Math.abs(a.waterLevel));
       
       setFloodData(data);
     } catch (error) {

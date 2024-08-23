@@ -1,112 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   Legend,
-//   ResponsiveContainer,
-// } from "recharts";
-// import dayjs from "dayjs";
-// import TimeFilterDropdown from "./TimeFilterDropdown"; // Import the TimeFilterDropdown component
-
-// const VelocityTimeChart = () => {
-//   const [data, setData] = useState([]);
-//   const [filteredData, setFilteredData] = useState([]);
-
-//   // Fetch data from the API
-//   const fetchCrowdData = async () => {
-//     try {
-//       const response = await fetch('/api/crowd-data');
-//       const result = await response.json();
-//       // Transform the data into the format needed for the chart
-//       const formattedData = result.map(item => ({
-//         time: dayjs(item.timestamp).format('YYYY-MM-DD HH:mm:ss'),
-//         velocity: item.velocity_camera, // Assuming person_count represents velocity
-//       }));
-//       setData(formattedData);
-//       setFilteredData(formattedData);
-//     } catch (error) {
-//       console.error("Failed to fetch crowd data:", error);
-//     }
-//   };
-
-//   // Filter the data based on the selected period
-//   const filterData = (period) => {
-//     const now = dayjs();
-//     let filtered;
-//     switch (period) {
-//       case "Last hour":
-//         filtered = data.filter((d) => now.diff(dayjs(d.time), "hour") < 1);
-//         break;
-//       case "Today":
-//         filtered = data.filter((d) => dayjs(d.time).isSame(now, "day"));
-//         break;
-//       case "This week":
-//         filtered = data.filter((d) => dayjs(d.time).isSame(now, "week"));
-//         break;
-//       case "This month":
-//         filtered = data.filter((d) => dayjs(d.time).isSame(now, "month"));
-//         break;
-//       default:
-//         filtered = data;
-//     }
-//     setFilteredData(filtered);
-//   };
-
-//   useEffect(() => {
-//     fetchCrowdData();
-//   }, []);
-
-//   return (
-//     <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col mx-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
-//       <div className="w-full flex justify-center items-center text-black text-lg font-bold font-['Radio Canada'] tracking-wide">
-//         <div>Overview</div>
-//       </div>
-//       <div className="w-full h-[0px] border border-black m-1"></div>
-//       <div className="w-full flex justify-end my-2">
-//         <TimeFilterDropdown onFilterChange={filterData} /> {/* Dropdown for selecting time period */}
-//       </div>
-//       <div className="w-full h-full p-[2%] overflow-y-auto">
-//         <ResponsiveContainer width="100%" height={300}>
-//           <LineChart data={filteredData}>
-//             <CartesianGrid strokeDasharray="3 3" />
-//             <XAxis
-//               dataKey="time"
-//               label={{
-//                 value: "Time",
-//                 position: "insideBottomRight",
-//                 offset: 0,
-//               }}
-//               tickFormatter={(tick) => dayjs(tick).format('HH:mm')}
-//             />
-//             <YAxis
-//               label={{
-//                 value: "Velocity (m/s)",
-//                 angle: -90,
-//                 position: "insideLeft",
-//               }}
-//             />
-//             <Tooltip />
-//             <Legend />
-//             <Line
-//               type="monotone"
-//               dataKey="velocity"
-//               stroke="#8884d8"
-//               activeDot={{ r: 8 }}
-//             />
-//           </LineChart>
-//         </ResponsiveContainer>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default VelocityTimeChart;
-
-
 import React, { useState, useEffect } from "react";
 import {
   LineChart,
@@ -270,3 +161,113 @@ const VelocityTimeChart = () => {
 };
 
 export default VelocityTimeChart;
+
+
+
+// import React, { useState, useEffect } from "react";
+// import {
+//   LineChart,
+//   Line,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+// } from "recharts";
+// import dayjs from "dayjs";
+// import TimeFilterDropdown from "./TimeFilterDropdown"; // Import the TimeFilterDropdown component
+
+// const VelocityTimeChart = () => {
+//   const [data, setData] = useState([]);
+//   const [filteredData, setFilteredData] = useState([]);
+
+//   // Fetch data from the API
+//   const fetchCrowdData = async () => {
+//     try {
+//       const response = await fetch('/api/crowd-data');
+//       const result = await response.json();
+//       // Transform the data into the format needed for the chart
+//       const formattedData = result.map(item => ({
+//         time: dayjs(item.timestamp).format('YYYY-MM-DD HH:mm:ss'),
+//         velocity: item.velocity_camera, // Assuming person_count represents velocity
+//       }));
+//       setData(formattedData);
+//       setFilteredData(formattedData);
+//     } catch (error) {
+//       console.error("Failed to fetch crowd data:", error);
+//     }
+//   };
+
+//   // Filter the data based on the selected period
+//   const filterData = (period) => {
+//     const now = dayjs();
+//     let filtered;
+//     switch (period) {
+//       case "Last hour":
+//         filtered = data.filter((d) => now.diff(dayjs(d.time), "hour") < 1);
+//         break;
+//       case "Today":
+//         filtered = data.filter((d) => dayjs(d.time).isSame(now, "day"));
+//         break;
+//       case "This week":
+//         filtered = data.filter((d) => dayjs(d.time).isSame(now, "week"));
+//         break;
+//       case "This month":
+//         filtered = data.filter((d) => dayjs(d.time).isSame(now, "month"));
+//         break;
+//       default:
+//         filtered = data;
+//     }
+//     setFilteredData(filtered);
+//   };
+
+//   useEffect(() => {
+//     fetchCrowdData();
+//   }, []);
+
+//   return (
+//     <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col mx-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
+//       <div className="w-full flex justify-center items-center text-black text-lg font-bold font-['Radio Canada'] tracking-wide">
+//         <div>Overview</div>
+//       </div>
+//       <div className="w-full h-[0px] border border-black m-1"></div>
+//       <div className="w-full flex justify-end my-2">
+//         <TimeFilterDropdown onFilterChange={filterData} /> {/* Dropdown for selecting time period */}
+//       </div>
+//       <div className="w-full h-full p-[2%] overflow-y-auto">
+//         <ResponsiveContainer width="100%" height={300}>
+//           <LineChart data={filteredData}>
+//             <CartesianGrid strokeDasharray="3 3" />
+//             <XAxis
+//               dataKey="time"
+//               label={{
+//                 value: "Time",
+//                 position: "insideBottomRight",
+//                 offset: 0,
+//               }}
+//               tickFormatter={(tick) => dayjs(tick).format('HH:mm')}
+//             />
+//             <YAxis
+//               label={{
+//                 value: "Velocity (m/s)",
+//                 angle: -90,
+//                 position: "insideLeft",
+//               }}
+//             />
+//             <Tooltip />
+//             <Legend />
+//             <Line
+//               type="monotone"
+//               dataKey="velocity"
+//               stroke="#8884d8"
+//               activeDot={{ r: 8 }}
+//             />
+//           </LineChart>
+//         </ResponsiveContainer>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VelocityTimeChart;

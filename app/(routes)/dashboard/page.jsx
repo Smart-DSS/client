@@ -112,7 +112,7 @@ const Page = () => {
               <button
                 className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
                   currentView === "flood"
-                    ? "bg-blue-300"
+                    ? "bg-blue-300 border-t-2 border-r-2 border-l-2"
                     : "bg-blue-200 hover:bg-blue-300"
                 }`}
                 onClick={() => setCurrentView("flood")}
@@ -123,7 +123,7 @@ const Page = () => {
               <button
                 className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
                   currentView === "crowd"
-                    ? "bg-blue-300"
+                    ? "bg-blue-300 border-t-2 border-r-2 border-l-2"
                     : "bg-blue-200 hover:bg-blue-300"
                 }`}
                 onClick={() => setCurrentView("crowd")}
