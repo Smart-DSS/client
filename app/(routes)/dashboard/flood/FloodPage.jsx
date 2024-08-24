@@ -20,7 +20,7 @@ const FloodPage = () => {
       <div className="w-full col-span-2 md:col-span-5">
         <FloodMapComponent />
       </div>
-      <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4">
+      <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4 ">
         {/* <RelocateResidents/> */}
         <FloodWarningComponent/>
         <FloodComponent/>

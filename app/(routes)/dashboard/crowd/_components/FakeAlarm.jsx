@@ -1,6 +1,11 @@
 import { app } from "@/config/FirebaseConfig";
 import { getFirestore, doc, onSnapshot, updateDoc } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  getStorage,
+  ref,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import React, { useState, useEffect } from "react";
 
 const FakeAlarm = () => {
@@ -10,7 +15,8 @@ const FakeAlarm = () => {
   const [fireDetected, setFireDetected] = useState(null);
   const [fireEverDetected, setFireEverDetected] = useState(null); // New state variable
   const [latestImageUrl, setLatestImageUrl] = useState(null);
-  const [highestConfidenceImageUrl, setHighestConfidenceImageUrl] = useState(null);
+  const [highestConfidenceImageUrl, setHighestConfidenceImageUrl] =
+    useState(null);
   const [timestamp, setTimestamp] = useState(null);
 
   const handleFalseAlarm = async () => {
@@ -19,10 +25,16 @@ const FakeAlarm = () => {
     // Update fire_detected and fire_ever_detected to false in Firestore
     const docRef = doc(db, "fire_detection", "1");
     try {
-      await updateDoc(docRef, { fire_detected: false, fire_ever_detected: false });
+      await updateDoc(docRef, {
+        fire_detected: false,
+        fire_ever_detected: false,
+      });
       console.log("fire_detected and fire_ever_detected set to false");
     } catch (error) {
-      console.error("Error updating fire_detected and fire_ever_detected:", error);
+      console.error(
+        "Error updating fire_detected and fire_ever_detected:",
+        error
+      );
     }
 
     // Delete highest_confidence_1.jpg from Firebase Storage
@@ -35,8 +47,26 @@ const FakeAlarm = () => {
     }
   };
 
+  const makeCall = async () => {
+    try {
+      const response = await fetch("/api/makeCall", {
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      // console.log(data.sid);
+      console.log("call made");
+    } catch (error) {
+      console.error("Error making call:", error);
+    }
+  };
+
   const handleAlert = () => {
     setAlertState("alert");
+    makeCall();
   };
 
   useEffect(() => {
@@ -58,13 +88,18 @@ const FakeAlarm = () => {
         // const latestImageRef = ref(storage, process.env.NEXT_PUBLIC_LATEST_IMAGE_URL);
         // const highestConfidenceImageRef = ref(storage, process.env.NEXT_PUBLIC_HIGHEST_CONFIDENCE_IMAGE_URL);
         const latestImageRef = ref(storage, data.latest_image_url);
-        const highestConfidenceImageRef = ref(storage, data.highest_confidence_image_url);
+        const highestConfidenceImageRef = ref(
+          storage,
+          data.highest_confidence_image_url
+        );
 
         try {
           const latestImageURL = await getDownloadURL(latestImageRef);
           setLatestImageUrl(latestImageURL);
 
-          const highestConfidenceImageURL = await getDownloadURL(highestConfidenceImageRef);
+          const highestConfidenceImageURL = await getDownloadURL(
+            highestConfidenceImageRef
+          );
           setHighestConfidenceImageUrl(highestConfidenceImageURL);
         } catch (error) {
           console.error("Error fetching image URLs:", error);
@@ -167,8 +202,7 @@ const FakeAlarm = () => {
       )}
       {alertState === "alert" && (
         <div className="w-full h-full flex justify-center items-center bg-[#cd0000]/40 text-white text-lg font-['Radio Canada'] tracking-wide p-4 rounded-lg">
-          Local police units were informed about the anomaly. They will be
-          reaching the spot as soon as possible.
+          The fire department and ambulance have been alerted and are on their way.
         </div>
       )}
     </div>

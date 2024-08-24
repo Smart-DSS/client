@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -18,8 +18,8 @@ module.exports = {
     },
     extend: {
       fontSize: {
-        'xxs': '0.625rem', // Example: 10px
-        'xxxs': '0.5rem',   // Example: 8px
+        xxs: "0.625rem", // Example: 10px
+        xxxs: "0.5rem", // Example: 8px
       },
       colors: {
         border: "hsl(var(--border))",
@@ -70,6 +70,14 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "accordion-left": {
+          from: { width: "0" },
+          to: { width: "var(--radix-accordion-content-width)" },
+        },
+        "accordion-right": {
+          from: { width: "var(--radix-accordion-content-width)" },
+          to: { width: "0" },
+        },
         fadeInUp: {
           '0%': { opacity: 0, transform: 'translateY(20px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
@@ -78,14 +86,26 @@ module.exports = {
           '0%': { opacity: 0, transform: 'translateY(-20px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
+        fadeInLeft: {
+          '0%': { opacity: 0, transform: 'translateX(-20px)' },
+          '100%': { opacity: 1, transform: 'translateX(0)' },
+        },
+        fadeInRight: {
+          '0%': { opacity: 0, transform: 'translateX(20px)' },
+          '100%': { opacity: 1, transform: 'translateX(0)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        fadeInUp: 'fadeInUp 0.5s ease-out forwards',
-        fadeInDown: 'fadeInDown 0.5s ease-out forwards',
-      },
+        "accordion-left": "accordion-left 0.2s ease-out",
+        "accordion-right": "accordion-right 0.2s ease-out",
+        fadeInUp: "fadeInUp 0.5s ease-out forwards",
+        fadeInDown: "fadeInDown 0.5s ease-out forwards",
+        fadeInLeft: "fadeInLeft 0.5s ease-out forwards",
+        fadeInRight: "fadeInRight 0.5s ease-out forwards",
+      },      
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

@@ -96,7 +96,7 @@ const Page = () => {
           <div className="w-full flex justify-center h-48 md:h-20 m-4 py-10 md:p-1">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-14">
               <button
-                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-2 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
                   currentView === "tsunami"
                     ? "bg-blue-300"
                     : "bg-blue-200 hover:bg-blue-300"
@@ -110,7 +110,7 @@ const Page = () => {
                 Tsunami
               </button>
               <button
-                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-2 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
                   currentView === "flood"
                     ? "bg-blue-300 border-t-2 border-r-2 border-l-2"
                     : "bg-blue-200 hover:bg-blue-300"
@@ -121,7 +121,7 @@ const Page = () => {
                 Flood
               </button>
               <button
-                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-2 flex flex-col items-center justify-center p-2 transition duration-300 ease-in-out ${
                   currentView === "crowd"
                     ? "bg-blue-300 border-t-2 border-r-2 border-l-2"
                     : "bg-blue-200 hover:bg-blue-300"
@@ -133,7 +133,7 @@ const Page = () => {
               </button>
 
               <button
-                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-2 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
                   currentView === "landslide"
                     ? "bg-blue-300"
                     : "bg-blue-200 hover:bg-blue-300"
@@ -147,7 +147,7 @@ const Page = () => {
                 Landslide
               </button>
               <button
-                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-2 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
                   currentView === "earthquake"
                     ? "bg-blue-300"
                     : "bg-blue-200 hover:bg-blue-300"
@@ -161,7 +161,7 @@ const Page = () => {
                 Earthquake
               </button>
               <button
-                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-4 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
+                className={`w-16 h-10 md:w-32 md:h-20 rounded-2xl border-blue-900 text-blue-900 border-b-2 flex flex-col items-center justify-center p-2 cursor-not-allowed transition duration-300 ease-in-out opacity-50 ${
                   currentView === "cyclone"
                     ? "bg-blue-300"
                     : "bg-blue-200 hover:bg-blue-300"
@@ -190,7 +190,7 @@ const Page = () => {
           </div>
 
           <div className="p-4 md:p-20 bg-[#F0F0F0] rounded-t-3xl">
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-5 md:gap-0 nav animate-fadeInUp">
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-5 md:gap-0">
               <EsclateBox />
               <Role stage={stage} />
               <Procedure />

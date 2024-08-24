@@ -12,12 +12,29 @@ const FloodWarningComponent = () => {
       const querySnapshot = await getDocs(collection(db, "FloodWarning-data"));
       const data = [];
       querySnapshot.forEach((doc) => {
-        data.push({ location: doc.id, waterLevel: doc.data().waterLevel>=0?doc.data().waterLevel :0 });
+        const docData = doc.data();
+        const waterLevel = docData.waterLevel >= 0 ? docData.waterLevel : 0;
+        const updateDate = docData.updateDate || null; // Optional field
+        const updateTimeString = docData.updateTimeString || null; // Optional field
+        const RainStatus = docData.RainStatus || null; // Optional field
+        const Rainfall = docData.Rainfall || null; // Optional field
+        const WindSpeed = docData.WindSpeed || null; // Optional field
+
+        data.push({
+          location: doc.id,
+          waterLevel,
+          updateDate,
+          updateTimeString,
+          RainStatus,
+          Rainfall,
+          WindSpeed,
+        });
       });
-      
+
+      console.log(data)
       // Sort data by the absolute value of water level in descending order
       data.sort((a, b) => Math.abs(b.waterLevel) - Math.abs(a.waterLevel));
-      
+
       setFloodData(data);
     } catch (error) {
       console.log("Error fetching flood data:", error);
@@ -40,6 +57,11 @@ const FloodWarningComponent = () => {
             key={index}
             location={flood.location}
             waterLevel={flood.waterLevel}
+            updateDate={flood.updateDate}
+            updateTimeString={flood.updateTimeString}
+            RainStatus={flood.RainStatus}
+            Rainfall={flood.Rainfall}
+            WindSpeed={flood.WindSpeed}
           />
         ))}
       </div>
@@ -48,3 +70,4 @@ const FloodWarningComponent = () => {
 };
 
 export default FloodWarningComponent;
+

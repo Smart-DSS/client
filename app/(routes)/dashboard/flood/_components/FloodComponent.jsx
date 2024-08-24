@@ -40,10 +40,6 @@ const FloodComponent = () => {
       <div className="w-full h-[0px] border border-black m-1"></div>
       <div className="w-full h-full p-[2%] overflow-y-auto">
         <FloodDetails />
-        <FloodDetails />
-        <FloodDetails />
-        <FloodDetails />
-        <FloodDetails />
       </div>
     </div>
   );

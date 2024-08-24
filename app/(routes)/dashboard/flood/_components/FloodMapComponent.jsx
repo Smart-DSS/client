@@ -291,7 +291,7 @@ const FloodMapComponent = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4 space-x-2 justify-center w-full">
-      <div className="w-full col-span-1 md:col-span-2 grid grid-rows-3">
+      <div className="w-full col-span-1 md:col-span-2 grid grid-rows-3 ">
         <RelocateResidents className="row-span-1"/>
         <div className="row-span-2 w-full h-full max-h-[400px] md:max-h-[400px] flex flex-col m-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
           <div className="w-full flex justify-center items-center text-black text-lg font-bold font-['Radio Canada'] tracking-wide">

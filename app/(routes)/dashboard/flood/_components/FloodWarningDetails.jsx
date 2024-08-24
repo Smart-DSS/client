@@ -1,6 +1,14 @@
 import React from "react";
 
-const FloodWarningDetails = ({ location, waterLevel }) => {
+const FloodWarningDetails = ({
+  location,
+  waterLevel,
+  updateDate,
+  updateTimeString,
+  RainStatus,
+  Rainfall,
+  WindSpeed,
+}) => {
   return (
     <div className="flex justify-center p-[1%]">
       <div className="w-[90%] h-24 bg-gray-50 rounded-xl flex flex-col justify-between p-[5%] relative hover:bg-gray-100 hover:scale-[1.05] hover:cursor-pointer">
@@ -13,27 +21,40 @@ const FloodWarningDetails = ({ location, waterLevel }) => {
         )}
 
         {/* Title Section */}
-        <div className="flex justify-start w-full">
-          <div className="text-black text-sm font-semibold font-['Radio Canada'] tracking-wide bg-gray-100 py-1 px-2 rounded-lg">
+        <div className="flex justify-between w-full">
+          <div className="text-black text-sm font-semibold font-['Radio Canada'] tracking-wide bg-gray-50 py-1 px-2 rounded-lg">
             {location}
+          </div>
+          {/* <div className="text-xxs">Water level</div> */}
+        </div>
+
+        {/* Weather Information and Water Level Display */}
+        <div className="grid grid-cols-2 w-full">
+          <div className="text-gray-500 text-xxxs font-['Radio Canada'] tracking-wide flex flex-col justify-start pl-2">
+            {RainStatus && <div>Rain Status: {RainStatus}</div>}
+            {/* 0-10 */}
+            {Rainfall && <div>Rainfall: {Rainfall}</div>}
+            {/* 0-30 */}
+            {WindSpeed && <div>Wind Speed: {WindSpeed}</div>} 
+          </div>
+          <div className="text-black text-3xl font-semibold font-['Radio Canada'] tracking-widest flex justify-center">
+            {(((parseFloat(waterLevel))/400)*100).toFixed(2)}%
           </div>
         </div>
 
-        {/* Water Level Display */}
-        <div className="text-black text-3xl font-semibold font-['Radio Canada'] tracking-widest flex justify-center">
-          {parseFloat(waterLevel).toFixed(2)}
-        </div>
-
-        {/* Water Level Label */}
-        <div className="text-blue-900 text-[1.5vh] font-semibold font-['Radio Canada'] tracking-wide w-full flex justify-end">
-          Water Level
-        </div>
+        {/* Update Date and Time */}
+        {updateDate && updateTimeString && (
+          <div className="text-gray-500 text-xxxs font-['Radio Canada'] tracking-wide flex justify-end">
+            Last updated: {updateDate} {updateTimeString}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default FloodWarningDetails;
+
 
 // // /app/dashboard/_components/FloodWarningDetails.jsx
 
