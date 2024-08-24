@@ -33,7 +33,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [stage, setStage] = useState(3);
   // const [currentView, setCurrentView] = useState(null);
-  const [currentView, setCurrentView] = useState("flood");
+  const [currentView, setCurrentView] = useState("crowd");
   const { data: session, status } = useSession();
 
   useEffect(() => {

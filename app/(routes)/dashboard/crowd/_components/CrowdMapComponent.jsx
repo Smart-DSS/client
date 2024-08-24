@@ -64,16 +64,25 @@ const CrowdMapComponent = () => {
     // Function to add markers for all coordinates in cam_latLong
     const addMarkers = (coordinates) => {
       coordinates.forEach((coord) => {
+        // const videoPopupContent = `
+        //   <div style="width: 50vw; height: 50vh; display: flex; justify-content: center;">
+        //     <div>
+        //       <div>
+        //         Coordinates: ${coord}
+        //       </div>
+        //       <video width="100%" height="100%" controls autoplay loop>
+        //         <source src="your-video-url.mp4" type="video/mp4">
+        //         Your browser does not support the video tag.
+        //       </video>
+        //     </div>
+        //   </div>
+        // `;
         const videoPopupContent = `
-          <div style="width: 50vw; height: 50vh; display: flex; justify-content: center;">
+          <div style="width: 10vw; height: 10vh; display: flex; justify-content: center;">
             <div>
               <div>
                 Coordinates: ${coord}
               </div>
-              <video width="100%" height="100%" controls autoplay loop>
-                <source src="your-video-url.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
             </div>
           </div>
         `;
@@ -136,12 +145,12 @@ const CrowdMapComponent = () => {
   // }, []);
 
   return (
-    <div className="relative w-full h-[400px] md:h-full border-2 border-black rounded-md p-2">
+    <div className="relative w-full h-[300px] border-2 border-black rounded-md pt-2 pl-2">
       <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} libraries={["visualization"]}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={18}
+          zoom={17}
           onLoad={handleOnLoad}
         >
           {/* {heatMapData.length > 0 && (

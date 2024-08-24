@@ -12,20 +12,22 @@ const RelocateResidents = () => {
     setError(null);
 
     try {
-      // Fetch all documents from the Residents collection
-      const residentsCollection = collection(db, "Residents");
-      const residentsSnapshot = await getDocs(residentsCollection);
+      
+      // // FCM
+      // // Fetch all documents from the Residents collection
+      // const residentsCollection = collection(db, "Residents");
+      // const residentsSnapshot = await getDocs(residentsCollection);
 
-      const notifications = residentsSnapshot.docs.map((doc) => {
-        const data = doc.data();
-        console.log(data.accessToken, data.fcmtoken);
-        return sendPushNotification(data.accessToken, data.fcmtoken);
-      });
+      // const notifications = residentsSnapshot.docs.map((doc) => {
+      //   const data = doc.data();
+      //   console.log(data.accessToken, data.fcmtoken);
+      //   return sendPushNotification(data.accessToken, data.fcmtoken);
+      // });
 
-      // Wait for all notifications to be sent
-      await Promise.all(notifications);
+      // // Wait for all notifications to be sent
+      // await Promise.all(notifications);
 
-      setAlertState("alert");
+      // setAlertState("alert");
     } catch (err) {
       console.error("Error notifying residents:", err);
       setError("Failed to notify residents. Please try again.");

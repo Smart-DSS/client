@@ -9,7 +9,7 @@ export async function POST() {
   try {
     // Predefined list of phone numbers
     // const phoneNumbers = ["+919400100423", "+919995384322"];
-    const phoneNumbers = ["+919400100423"];
+    const phoneNumbers = ["+919400100423","+919633716494"];
 
     // Create calls for each phone number
     const callPromises = phoneNumbers.map((number) =>
