@@ -1,9 +1,9 @@
 'use client'
 
-// components/PlotComponent.js
+// components/RunningEventPlotComponent.js
 import { useEffect, useState } from 'react';
 
-export default function PlotComponent() {
+export default function RunningEventPlotComponent() {
     const [plotUrl, setPlotUrl] = useState(null);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export default function PlotComponent() {
 
     return (
         <div>
-            <h1>Plot Display</h1>
+            <h1>Running Event Plot Display</h1>
             {plotUrl ? (
                 <img src={plotUrl} alt="Plot" />
             ) : (

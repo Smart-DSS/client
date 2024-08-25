@@ -11,6 +11,9 @@ import VelocityTimeChart from "./_components/VelocityTimeChart";
 import CloggingPlotComponent from "./_components/CloggingPlotComponent";
 import BottleneckPlotComponent from "./_components/BottleneckPlotComponent";
 import OtherPlotComponent from "./_components/OtherPlotComponent";
+import RunningEventPlotComponent from "./_components/RunningEventPlotComponent";
+import GridDensityPlotComponent from "./_components/GridDensityPlotComponent";
+import KDEDensityPlotComponent from "./_components/KDEDensityPlotComponent";
 // import CrowdComponent from "../_components/CrowdComponent";
 // import LocationCards from "../_components/LocationCards";
 // import CrowdMapComponent from "../_components/CrowdMapComponent";
@@ -40,7 +43,10 @@ const CrowdPage = () => {
           {/* <CrowdMapComponent /> */}
           <CloggingPlotComponent />
           <BottleneckPlotComponent />
-          <OtherPlotComponent/>
+          {/* <OtherPlotComponent/> */}
+          <RunningEventPlotComponent/>
+          <GridDensityPlotComponent/>
+          <KDEDensityPlotComponent/>
         </div>
       </div>
       <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4">
