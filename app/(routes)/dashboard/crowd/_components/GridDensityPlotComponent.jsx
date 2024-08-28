@@ -9,7 +9,7 @@ export default function GridDensityPlotComponent() {
     useEffect(() => {
         // Function to fetch the plot image from the Flask backend
         const fetchPlot = () => {
-            fetch('http://localhost:8080/grid_density')
+            fetch('https://test-uksez4pcka-el.a.run.app/grid_density')
                 .then(response => response.blob())
                 .then(blob => {
                     // Create a URL for the blob image

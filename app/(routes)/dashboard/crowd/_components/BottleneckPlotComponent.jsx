@@ -9,7 +9,7 @@ export default function BottleneckPlotComponent() {
     useEffect(() => {
         // Function to fetch the plot image from the Flask backend
         const fetchPlot = () => {
-            fetch('http://localhost:8080/bottleneck')
+            fetch('https://test-uksez4pcka-el.a.run.app/bottleneck')
                 .then(response => response.blob())
                 .then(blob => {
                     // Create a URL for the blob image
