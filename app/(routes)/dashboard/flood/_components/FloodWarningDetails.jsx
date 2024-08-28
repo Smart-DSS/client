@@ -13,7 +13,8 @@ const FloodWarningDetails = ({
     <div className="flex justify-center p-[1%]">
       <div className="w-[90%] h-24 bg-gray-50 rounded-xl flex flex-col justify-between p-[5%] relative hover:bg-gray-100 hover:scale-[1.05] hover:cursor-pointer">
         {/* Alert icon if waterLevel > 250 */}
-        {parseFloat(waterLevel) > 250 && (
+        {/* {parseFloat(waterLevel) > 250 && ( */}
+        {(((parseFloat(waterLevel))/400)*100).toFixed(2) > 50 && (
           <div className="absolute top-[-5%] right-[-2%] bg-red-600 text-white rounded-full py-2 px-8 gap-1 w-[10%] h-[10%] flex items-center justify-center border-red-500 border-2">
             <div>Alert</div>
             <div className="text-yellow-300">⚠️</div>

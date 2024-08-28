@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore"; // Import Firestore functions
+import { getFirestore, collection, getDocs, query, where, updateDoc } from "firebase/firestore"; // Import Firestore functions
 
 const RelocateResidents = () => {
   const [alertState, setAlertState] = useState(null);
@@ -10,31 +10,94 @@ const RelocateResidents = () => {
   const notifyResidents = async () => {
     setLoading(true);
     setError(null);
-
+  
     try {
-      
-      // // FCM
-      // // Fetch all documents from the Residents collection
-      // const residentsCollection = collection(db, "Residents");
-      // const residentsSnapshot = await getDocs(residentsCollection);
-
-      // const notifications = residentsSnapshot.docs.map((doc) => {
-      //   const data = doc.data();
-      //   console.log(data.accessToken, data.fcmtoken);
-      //   return sendPushNotification(data.accessToken, data.fcmtoken);
-      // });
-
-      // // Wait for all notifications to be sent
-      // await Promise.all(notifications);
-
-      // setAlertState("alert");
+      const residentsRef = collection(db, "Residents");
+  
+      // Create a query to select documents where isNotOnAlert is true
+      const q = query(residentsRef, where("isNotOnAlert", "==", true));
+  
+      // Execute the query
+      const querySnapshot = await getDocs(q);
+  
+      // Iterate through the results and update each document
+      const promises = [];
+      const notifications = [];
+  
+      querySnapshot.forEach((doc) => {
+        const docRef = doc.ref;
+  
+        // Update the document to set isNotOnAlert to false
+        promises.push(updateDoc(docRef, { isNotOnAlert: false }));
+  
+        // Send push notification using FCM
+        const data = doc.data();
+        notifications.push(sendPushNotification(data.accessToken, data.fcmtoken));
+      });
+  
+      // Wait for all updates to complete
+      await Promise.all(promises);
+  
+      // Wait for all notifications to be sent
+      await Promise.all(notifications);
+  
+      setAlertState("alert");
+      console.log("Documents updated and notifications sent successfully");
+  
     } catch (err) {
       console.error("Error notifying residents:", err);
-      setError("Failed to notify residents. Please try again.");
+      // setError("Failed to notify residents. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+
+  // const notifyResidents = async () => {
+  //   setLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     const residentsRef = collection(db, "Residents");
+
+  //     // Create a query to select documents where isNotOnAlert is true
+  //     const q = query(residentsRef, where("isNotOnAlert", "==", true));
+
+  //     // Execute the query
+  //     const querySnapshot = await getDocs(q);
+
+  //     // Iterate through the results and update each document
+  //     const promises = [];
+  //     querySnapshot.forEach((doc) => {
+  //       const docRef = doc.ref;
+  //       promises.push(updateDoc(docRef, { isNotOnAlert: false }));
+  //     });
+
+  //     // Wait for all updates to complete
+  //     await Promise.all(promises);
+
+  //     res.status(200).json({ message: "Documents updated successfully" });
+  //     // // FCM
+  //     // // Fetch all documents from the Residents collection
+  //     // const residentsCollection = collection(db, "Residents");
+  //     // const residentsSnapshot = await getDocs(residentsCollection);
+
+  //     // const notifications = residentsSnapshot.docs.map((doc) => {
+  //     //   const data = doc.data();
+  //     //   console.log(data.accessToken, data.fcmtoken);
+  //     //   return sendPushNotification(data.accessToken, data.fcmtoken);
+  //     // });
+
+  //     // // Wait for all notifications to be sent
+  //     // await Promise.all(notifications);
+
+  //     // setAlertState("alert");
+  //   } catch (err) {
+  //     console.error("Error notifying residents:", err);
+  //     setError("Failed to notify residents. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const sendPushNotification = async (accessToken, fcmtoken) => {
     try {
@@ -78,7 +141,10 @@ const RelocateResidents = () => {
           <div className="w-full h-full p-[2%] overflow-y-auto">
             {/* <div className="flex justify-end space-x-4 mt-4"> */}
             <div className="flex flex-col justify-center p-3 gap-4">
-               <div className="font-extralight text-sm">To notify app users about relocating to their nearest assigned shelter, please click the button below.</div> 
+              <div className="font-extralight text-sm">
+                To notify app users about relocating to their nearest assigned
+                shelter, please click the button below.
+              </div>
               <button
                 onClick={notifyResidents}
                 className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
@@ -89,7 +155,7 @@ const RelocateResidents = () => {
                     "Notifying..."
                   ) : (
                     <div className="flex justify-center">
-                        Notify Residents
+                      Notify Residents
                       <img
                         src="/send.png" // Update this path to the correct location of send.png
                         alt="Send"

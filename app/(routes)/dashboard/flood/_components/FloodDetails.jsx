@@ -8,16 +8,22 @@ const FloodDetails = () => {
   const [rainfall, setRainfall] = useState();
   const [windSpeed, setWindSpeed] = useState();
   const [waterLevel, setWaterLevel] = useState();
+  const [updateDate, setUpdateDate] = useState();
+  const [updateTimeString, setUpdateTimeString] = useState();
 
   const getFloodData = async () => {
     const docRef = doc(db, "Flood-data", "EWS-Main");
     try {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setRainStatus(docSnap.data()?.RainStatus == 1 ? "Raining" : "Not Raining");
+        setRainStatus(
+          docSnap.data()?.RainStatus == 1 ? "Raining" : "Not Raining"
+        );
         setWaterLevel(docSnap.data()?.waterLevel);
         setRainfall(docSnap.data()?.Rainfall);
         setWindSpeed(docSnap.data()?.WindSpeed);
+        setUpdateDate(docSnap.data()?.updateDate);
+        setUpdateTimeString(docSnap.data()?.updateTimeString);
       } else {
         console.log("No such stage!");
       }
@@ -47,13 +53,19 @@ const FloodDetails = () => {
           <div className="text-black text-xs font-semibold font-['Radio Canada'] tracking-wide">
             Water Level:
           </div>
-          <div className="text-black text-2xl font-semibold font-['Radio Canada'] tracking-widest flex justify-center">
-            {((parseFloat(waterLevel) / 400) * 100).toFixed(2)}%
+          <div className="text-black text-3xl font-semibold font-['Radio Canada'] tracking-widest flex justify-center">
+            {((parseFloat(waterLevel) / 255) * 100).toFixed(2)}%
           </div>
+          {updateDate && updateTimeString && (
+            <div className="text-gray-500 text-xxxs font-['Radio Canada'] tracking-wide flex justify-end mt-2">
+              Last updated: {updateDate} {updateTimeString}
+            </div>
+          )}
         </div>
       </div>
 
-      {parseFloat(waterLevel) > 250 && (
+      {/* {parseFloat(waterLevel) > 200 && ( */}
+      {((parseFloat(waterLevel) / 255) * 100).toFixed(2) > 50 && (
         <div className="absolute top-[-5%] right-[-2%] bg-red-600 text-white rounded-full py-2 px-8 gap-1 w-[10%] h-[10%] flex items-center justify-center border-red-500 border-2">
           <div>Alert</div>
           <div className="text-yellow-300">⚠️</div>
