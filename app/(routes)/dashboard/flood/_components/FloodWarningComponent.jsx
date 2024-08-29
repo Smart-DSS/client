@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import FloodWarningDetails from "./FloodWarningDetails";
 import { app } from "@/config/FirebaseConfig";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, onSnapshot, getFirestore } from "firebase/firestore";
 
 const FloodWarningComponent = () => {
   const [floodData, setFloodData] = useState([]);
   const db = getFirestore(app);
 
-  const getAllFloodData = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "FloodWarning-data"));
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "FloodWarning-data"), (querySnapshot) => {
       const data = [];
       querySnapshot.forEach((doc) => {
         const docData = doc.data();
@@ -31,19 +30,15 @@ const FloodWarningComponent = () => {
         });
       });
 
-      console.log(data)
       // Sort data by the absolute value of water level in descending order
       data.sort((a, b) => Math.abs(b.waterLevel) - Math.abs(a.waterLevel));
 
       setFloodData(data);
-    } catch (error) {
-      console.log("Error fetching flood data:", error);
-    }
-  };
+    });
 
-  useEffect(() => {
-    getAllFloodData();
-  }, []);
+    // Cleanup the listener on component unmount
+    return () => unsubscribe();
+  }, [db]);
 
   return (
     <div className="w-full h-full max-h-[300px] md:max-h-[400px] flex flex-col mx-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
@@ -70,4 +65,3 @@ const FloodWarningComponent = () => {
 };
 
 export default FloodWarningComponent;
-

@@ -1,5 +1,5 @@
 import { app } from "@/config/FirebaseConfig";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 
 const FloodDetails = () => {
@@ -11,10 +11,11 @@ const FloodDetails = () => {
   const [updateDate, setUpdateDate] = useState();
   const [updateTimeString, setUpdateTimeString] = useState();
 
-  const getFloodData = async () => {
+  useEffect(() => {
     const docRef = doc(db, "Flood-data", "EWS-Main");
-    try {
-      const docSnap = await getDoc(docRef);
+    
+    // Listen to document updates in real-time
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         setRainStatus(
           docSnap.data()?.RainStatus == 1 ? "Raining" : "Not Raining"
@@ -25,16 +26,13 @@ const FloodDetails = () => {
         setUpdateDate(docSnap.data()?.updateDate);
         setUpdateTimeString(docSnap.data()?.updateTimeString);
       } else {
-        console.log("No such stage!");
+        console.log("No such document!");
       }
-    } catch (error) {
-      console.log("No such stage!");
-    }
-  };
+    });
 
-  useEffect(() => {
-    getFloodData();
-  }, []);
+    // Cleanup the listener on component unmount
+    return () => unsubscribe();
+  }, [db]);
 
   return (
     <div className="relative flex justify-center p-[1%]">
@@ -64,7 +62,6 @@ const FloodDetails = () => {
         </div>
       </div>
 
-      {/* {parseFloat(waterLevel) > 200 && ( */}
       {((parseFloat(waterLevel) / 255) * 100).toFixed(2) > 50 && (
         <div className="absolute top-[-5%] right-[-2%] bg-red-600 text-white rounded-full py-2 px-8 gap-1 w-[10%] h-[10%] flex items-center justify-center border-red-500 border-2">
           <div>Alert</div>

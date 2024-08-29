@@ -10,6 +10,7 @@ export default function CloggingPlotComponent() {
         // Function to fetch the plot image from the Flask backend
         const fetchPlot = () => {
             fetch('https://test-uksez4pcka-el.a.run.app/clogging')
+            // fetch('http://localhost:8080/clogging')
                 .then(response => response.blob())
                 .then(blob => {
                     // Create a URL for the blob image

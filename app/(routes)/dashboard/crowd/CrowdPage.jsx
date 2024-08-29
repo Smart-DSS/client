@@ -5,7 +5,7 @@
 import React from "react";
 import CrowdComponent from "./_components/CrowdComponent";
 import CrowdMapComponent from "./_components/CrowdMapComponent";
-import FakeAlarm from "./_components/FakeAlarm";
+import FireAlarm from "./_components/FireAlarm";
 import LocationCards from "./_components/LocationCards";
 import VelocityTimeChart from "./_components/VelocityTimeChart";
 import CloggingPlotComponent from "./_components/CloggingPlotComponent";
@@ -14,10 +14,6 @@ import OtherPlotComponent from "./_components/OtherPlotComponent";
 import RunningEventPlotComponent from "./_components/RunningEventPlotComponent";
 import GridDensityPlotComponent from "./_components/GridDensityPlotComponent";
 import KDEDensityPlotComponent from "./_components/KDEDensityPlotComponent";
-// import CrowdComponent from "../_components/CrowdComponent";
-// import LocationCards from "../_components/LocationCards";
-// import CrowdMapComponent from "../_components/CrowdMapComponent";
-// import FakeAlarm from "../_components/FakeAlarm";
 
 const CrowdPage = () => {
   return (
@@ -50,7 +46,7 @@ const CrowdPage = () => {
         </div>
       </div>
       <div className="w-full col-span-1 md:col-span-2 grid grid-row-2 gap-4">
-        <FakeAlarm />
+        <FireAlarm/>
         <LocationCards />
       </div>
     </div>

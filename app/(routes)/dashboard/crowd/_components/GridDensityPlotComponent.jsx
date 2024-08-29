@@ -10,6 +10,7 @@ export default function GridDensityPlotComponent() {
         // Function to fetch the plot image from the Flask backend
         const fetchPlot = () => {
             fetch('https://test-uksez4pcka-el.a.run.app/grid_density')
+            // fetch('http://localhost:8080/grid_density')
                 .then(response => response.blob())
                 .then(blob => {
                     // Create a URL for the blob image
@@ -33,7 +34,7 @@ export default function GridDensityPlotComponent() {
 
     return (
         <div>
-            <h1>Grid Density Plot Display</h1>
+            <h1 className='bg-gray-50 px-2 py-1 rounded-full'>Grid Density Plot Display</h1>
             {plotUrl ? (
                 <img src={plotUrl} alt="Plot" />
             ) : (

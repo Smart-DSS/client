@@ -9,7 +9,8 @@ export default function RunningEventPlotComponent() {
     useEffect(() => {
         // Function to fetch the plot image from the Flask backend
         const fetchPlot = () => {
-            fetch('http://localhost:8080/running_event')
+            fetch('https://test-uksez4pcka-el.a.run.app/running_event')
+            // fetch('http://localhost:8080/running_event')
                 .then(response => response.blob())
                 .then(blob => {
                     // Create a URL for the blob image
@@ -32,8 +33,8 @@ export default function RunningEventPlotComponent() {
     }, []);
 
     return (
-        <div>
-            <h1>Running Event Plot Display</h1>
+        <div className='bg-gray-50 px-2 py-1 rounded-full'>
+            <h1>Running Event/Divergence Plot Display</h1>
             {plotUrl ? (
                 <img src={plotUrl} alt="Plot" />
             ) : (

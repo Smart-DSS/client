@@ -7,22 +7,24 @@ import {
   deleteObject,
 } from "firebase/storage";
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 
-const FakeAlarm = () => {
+const FireAlarm = () => {
   const db = getFirestore(app);
   const storage = getStorage(app);
   const [alertState, setAlertState] = useState(null);
   const [fireDetected, setFireDetected] = useState(null);
-  const [fireEverDetected, setFireEverDetected] = useState(null); // New state variable
+  const [fireEverDetected, setFireEverDetected] = useState(null); 
   const [latestImageUrl, setLatestImageUrl] = useState(null);
   const [highestConfidenceImageUrl, setHighestConfidenceImageUrl] =
     useState(null);
   const [timestamp, setTimestamp] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState(null);
 
   const handleFalseAlarm = async () => {
     setAlertState("false");
 
-    // Update fire_detected and fire_ever_detected to false in Firestore
     const docRef = doc(db, "fire_detection", "1");
     try {
       await updateDoc(docRef, {
@@ -37,7 +39,6 @@ const FakeAlarm = () => {
       );
     }
 
-    // Delete highest_confidence_1.jpg from Firebase Storage
     const highestConfidenceImageRef = ref(storage, "highest_confidence_1.jpg");
     try {
       await deleteObject(highestConfidenceImageRef);
@@ -57,7 +58,6 @@ const FakeAlarm = () => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      // console.log(data.sid);
       console.log("call made");
     } catch (error) {
       console.error("Error making call:", error);
@@ -69,6 +69,16 @@ const FakeAlarm = () => {
     makeCall();
   };
 
+  const openModal = (imageUrl) => {
+    setModalImageUrl(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImageUrl(null);
+  };
+
   useEffect(() => {
     const docRef = doc(db, "fire_detection", "1");
 
@@ -76,17 +86,13 @@ const FakeAlarm = () => {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
         setFireDetected(data.fire_detected);
-        setFireEverDetected(data.fire_ever_detected); // Update fireEverDetected
+        setFireEverDetected(data.fire_ever_detected);
         setTimestamp(data.timestamp);
 
-        // If fire is detected, set fireEverDetected to true in Firestore
         if (data.fire_detected && !data.fire_ever_detected) {
           await updateDoc(docRef, { fire_ever_detected: true });
         }
 
-        // Fetch URLs from Firebase Storage
-        // const latestImageRef = ref(storage, process.env.NEXT_PUBLIC_LATEST_IMAGE_URL);
-        // const highestConfidenceImageRef = ref(storage, process.env.NEXT_PUBLIC_HIGHEST_CONFIDENCE_IMAGE_URL);
         const latestImageRef = ref(storage, data.latest_image_url);
         const highestConfidenceImageRef = ref(
           storage,
@@ -129,7 +135,7 @@ const FakeAlarm = () => {
 
   if (!fireEverDetected) {
     return (
-      <div className="w-full h-full flex justify-center items-center bg-[#ddd] text-black text-lg font-['Radio Canada'] tracking-wide p-4 rounded-lg">
+      <div className="w-full h-full flex justify-center items-center bg-[#ddd] text-black text-2xl font-['Radio Canada'] tracking-wide m-2 p-2 rounded-lg">
         No potential hazard
       </div>
     );
@@ -148,31 +154,55 @@ const FakeAlarm = () => {
             <div className="w-full flex justify-between space-x-4">
               <div className="w-1/2">
                 {latestImageUrl ? (
-                  <img
-                    src={latestImageUrl}
-                    alt="Latest Image"
-                    className="w-full h-auto rounded-lg"
-                  />
+                  <>
+                    <img
+                      src={latestImageUrl}
+                      alt="Latest Image"
+                      className="w-full h-auto rounded-lg cursor-pointer"
+                      onClick={() => openModal(latestImageUrl)}
+                    />
+                    <div className="flex justify-between p-2">
+                      <div className="text-black text-xs font-light font-['Inter'] leading-[18px]">
+                        Latest Image
+                      </div>
+                      <a
+                        href={latestImageUrl}
+                        download
+                        className="text-blue-500 text-xs"
+                      >
+                        Download
+                      </a>
+                    </div>
+                  </>
                 ) : (
                   <div>Loading image...</div>
                 )}
-                <div className="text-black text-xs font-light font-['Inter'] leading-[18px] p-2">
-                  Latest Image
-                </div>
               </div>
               <div className="w-1/2">
                 {highestConfidenceImageUrl ? (
-                  <img
-                    src={highestConfidenceImageUrl}
-                    alt="Highest Confidence Image"
-                    className="w-full h-auto rounded-lg"
-                  />
+                  <>
+                    <img
+                      src={highestConfidenceImageUrl}
+                      alt="Highest Confidence Image"
+                      className="w-full h-auto rounded-lg cursor-pointer"
+                      onClick={() => openModal(highestConfidenceImageUrl)}
+                    />
+                    <div className="flex justify-between p-2">
+                      <div className="text-black text-xs font-light font-['Inter'] leading-[18px]">
+                        Highest Confidence Img
+                      </div>
+                      <a
+                        href={highestConfidenceImageUrl}
+                        download
+                        className="text-blue-500 text-xs"
+                      >
+                        Download
+                      </a>
+                    </div>
+                  </>
                 ) : (
                   <div>Loading image...</div>
                 )}
-                <div className="text-black text-xs font-light font-['Inter'] leading-[18px] p-2">
-                  Highest Confidence Img
-                </div>
               </div>
             </div>
             <div className="text-black text-xs font-extralight font-['Inter'] leading-[18px] mt-2">
@@ -205,8 +235,29 @@ const FakeAlarm = () => {
           The fire department and ambulance have been alerted and are on their way.
         </div>
       )}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        className="w-full h-full flex justify-center items-center bg-black bg-opacity-75 p-4"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+        ariaHideApp={false}
+      >
+        <div className="w-full h-full flex justify-center items-center">
+          <img
+            src={modalImageUrl}
+            alt="Full Screen View"
+            className="w-auto h-auto max-w-full max-h-full"
+          />
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 text-white text-2xl"
+          >
+            &times;
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
 
-export default FakeAlarm;
+export default FireAlarm;

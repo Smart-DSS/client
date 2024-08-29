@@ -10,6 +10,7 @@ export default function KDEDensityPlotComponent() {
         // Function to fetch the plot image from the Flask backend
         const fetchPlot = () => {
             fetch('https://test-uksez4pcka-el.a.run.app/kde_density')
+            // fetch('http://localhost:8080/kde_density')
                 .then(response => response.blob())
                 .then(blob => {
                     // Create a URL for the blob image
@@ -33,7 +34,7 @@ export default function KDEDensityPlotComponent() {
 
     return (
         <div>
-            <h1>KDE Density Plot Display</h1>
+            <h1 className='bg-gray-50 px-2 py-1 rounded-full'>KDE Density Plot Display</h1>
             {plotUrl ? (
                 <img src={plotUrl} alt="Plot" />
             ) : (
