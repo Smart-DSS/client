@@ -29,8 +29,8 @@ const Navbar = () => {
 
   const links = [
     { id: 1, link: "dashboard" },
-    { id: 2, link: "data" },
-    { id: 3, link: "profile" },
+    // { id: 2, link: "data" },
+    { id: 2, link: "profile" },
   ];
 
   return (
