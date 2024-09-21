@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import CrowdDetails from "./CrowdDetails";
@@ -6,41 +5,41 @@ import CrowdDetails from "./CrowdDetails";
 const CrowdComponent = () => {
   const [crowdData, setCrowdData] = useState([]);
 
-  const getCrowdData = async () => {
-    try {
-      const data = await fetch('/api/crowd-data');
-      const result = await data.json();
+  // const getCrowdData = async () => {
+  //   try {
+  //     const data = await fetch('/api/crowd-data');
+  //     const result = await data.json();
 
-      // Group the data by camera_id and keep the entry with the latest id for each
-      const latestCrowdData = Object.values(
-        result.reduce((acc, current) => {
-          const existing = acc[current.camera_id];
-      
-          // Compare the id to determine the latest entry
-          if (!existing || existing.id < current.id) {
-            acc[current.camera_id] = current;
-          }
-          return acc;
-        }, {})
-      );
-      console.log(latestCrowdData);
-      // Set the formatted data to the state
-      setCrowdData(latestCrowdData);
-    } catch (error) {
-      console.error("Failed to fetch crowd data:", error);
-    }
-  };
+  //     // Group the data by camera_id and keep the entry with the latest id for each
+  //     const latestCrowdData = Object.values(
+  //       result.reduce((acc, current) => {
+  //         const existing = acc[current.camera_id];
 
-  useEffect(() => {
-    // Fetch data when component mounts
-    getCrowdData();
+  //         // Compare the id to determine the latest entry
+  //         if (!existing || existing.id < current.id) {
+  //           acc[current.camera_id] = current;
+  //         }
+  //         return acc;
+  //       }, {})
+  //     );
+  //     console.log(latestCrowdData);
+  //     // Set the formatted data to the state
+  //     setCrowdData(latestCrowdData);
+  //   } catch (error) {
+  //     console.error("Failed to fetch crowd data:", error);
+  //   }
+  // };
 
-    // Polling every 5 seconds
-    const intervalId = setInterval(getCrowdData, 1000);
+  // useEffect(() => {
+  //   // Fetch data when component mounts
+  //   getCrowdData();
 
-    // Cleanup on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
+  //   // Polling every 5 seconds
+  //   const intervalId = setInterval(getCrowdData, 1000);
+
+  //   // Cleanup on component unmount
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   return (
     <div className="w-full h-full max-h-[400px] md:max-h-[640px] flex flex-col m-2 p-2 rounded-lg bg-white shadow-[4px_8px_15px_#00000040]">
@@ -49,21 +48,39 @@ const CrowdComponent = () => {
       </div>
       <div className="w-full h-[0px] border border-black m-1"></div>
       <div className="w-full h-full p-[2%] overflow-y-auto">
-        {crowdData.map((data) => (
+        {/* {crowdData.map((data) => (
           <CrowdDetails
             key={data.camera_id}
             camera_id={data.camera_id}
             person_count={data.count_camera}
             timestamp={dayjs(data.timestamp).format('YYYY-MM-DD HH:mm:ss')}
           />
-        ))}
+        ))} */}
+        <CrowdDetails
+          key='1'
+          camera_id='1'
+          person_count='2'
+          timestamp="2024-09-20 14:51:05"
+        />
+        <CrowdDetails
+          key='2'
+          camera_id='2'
+          person_count='9'
+          timestamp="2024-09-20 14:51:05"
+        />
+        <CrowdDetails
+          key='3'
+          camera_id='3'
+          person_count='4'
+          timestamp="2024-09-20 14:51:05"
+        />
+        
       </div>
     </div>
   );
 };
 
 export default CrowdComponent;
-
 
 // try 3
 
@@ -76,7 +93,7 @@ export default CrowdComponent;
 
 //   const handleNewCrowdData = (newData) => {
 //     const parsedData = JSON.parse(newData);
-    
+
 //     // Update the state with the latest crowd data
 //     setCrowdData(parsedData);
 //   };
@@ -85,7 +102,7 @@ export default CrowdComponent;
 //     console.log("starts")
 //     // const socket = new WebSocket('ws://192.168.120.40:8080/socket.io');
 //     const socket = new WebSocket('ws://localhost:8080/socket.io');
-    
+
 //     socket.onmessage = (event) => {
 //       handleNewCrowdData(event.data);
 //     };
@@ -123,10 +140,7 @@ export default CrowdComponent;
 
 // export default CrowdComponent;
 
-
-
 // try 2
-
 
 // import React, { useState, useEffect } from "react";
 // import dayjs from "dayjs";
@@ -154,7 +168,7 @@ export default CrowdComponent;
 //       const latestCrowdData = Object.values(
 //         result.reduce((acc, current) => {
 //           const existing = acc[current.camera_id];
-          
+
 //           if (!existing || existing.id < current.id) {
 //             acc[current.camera_id] = current;
 //           }
@@ -173,7 +187,7 @@ export default CrowdComponent;
 //       const latestCrowdData = Object.values(
 //         result.reduce((acc, current) => {
 //           const existing = acc[current.camera_id];
-          
+
 //           if (!existing || existing.id < current.id) {
 //             acc[current.camera_id] = current;
 //           }
@@ -217,10 +231,6 @@ export default CrowdComponent;
 // };
 
 // export default CrowdComponent;
-
-
-
-
 
 // try 4 - max count_in last 5 entries
 // import React, { useState, useEffect } from "react";
@@ -299,13 +309,6 @@ export default CrowdComponent;
 // };
 
 // export default CrowdComponent;
-
-
-
-
-
-
-
 
 // try 4 - connect using working flask code
 
